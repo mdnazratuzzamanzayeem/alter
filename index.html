@@ -111,6 +111,8 @@
                 radial-gradient(circle at 25% 80%, rgba(210, 220, 215, 0.9) 0%, transparent 45%);
             filter: blur(30px);
             animation: breathe 15s ease-in-out infinite alternate;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .bg-mesh::after {
@@ -131,8 +133,8 @@
         }
 
         @keyframes breathe {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+            0% { transform: scale(1) translateZ(0); }
+            100% { transform: scale(1.05) translateZ(0); }
         }
 
         /* =========================================
@@ -344,14 +346,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0; /* Padding removed to rely on perfect centering */
+            padding: 0;
             margin-bottom: 1.5rem;
             width: 100%;
             transform-origin: center;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Optimize and scale down toggle cleanly when sidebar collapsed */
         .sidebar.collapsed .theme-switch-wrapper {
             transform: scale(0.8);
         }
@@ -481,7 +482,6 @@
             font-size: 1.05rem;
             transition: color 0.3s ease;
             margin: 0 auto;
-            text-align: center;
         }
 
         .prose h2 {
@@ -508,7 +508,7 @@
 
         .prose p {
             margin-bottom: 1.5rem;
-            text-align: center;
+            text-align: justify;
         }
 
         .prose strong {
@@ -552,7 +552,7 @@
         .table-container table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            min-width: 650px;
             margin: 0 auto;
         }
 
@@ -663,6 +663,15 @@
         .btn-primary i {
             width: 18px;
             height: 18px;
+        }
+
+        /* Utility Animations */
+        @keyframes spin { 
+            100% { transform: rotate(360deg); } 
+        }
+        
+        .spin { 
+            animation: spin 1s linear infinite; 
         }
 
         /* =========================================
@@ -1088,13 +1097,6 @@
                     // Trigger loader animation
                     btn.innerHTML = '<span>Sending...</span><i data-lucide="loader" class="spin"></i>';
                     lucide.createIcons();
-                    
-                    if (!document.getElementById('spin-style')) {
-                        const style = document.createElement('style');
-                        style.id = 'spin-style';
-                        style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } } .spin { animation: spin 1s linear infinite; }`;
-                        document.head.appendChild(style);
-                    }
 
                     // Format form data to JSON
                     const formData = new FormData(contactForm);
