@@ -1,4 +1,3 @@
-# Alter
 # Alter — Dispatches & Essays
 
 > A sanctuary for focused reading. Thoughtful dispatches and long-form essays on education, society, technology, and culture.
